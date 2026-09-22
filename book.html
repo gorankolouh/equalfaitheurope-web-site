@@ -35,7 +35,7 @@
   .wrap{ max-width:1080px; margin:0 auto; padding:0 26px; }
 
   /* ---------- NAV ---------- */
-  header.site{ background: var(--paper); border-bottom:1px solid var(--hair); }
+  header.site{ background: var(--paper); border-bottom:1px solid var(--hair); position:relative; }
   .nav{ display:flex; align-items:center; justify-content:space-between; padding:20px 26px; max-width:1080px; margin:0 auto; font-size:14px; }
   .brand{ display:flex; align-items:center; gap:12px; color: var(--ink); text-decoration:none; }
   .brand .mark{ width:34px; height:34px; border-radius:50%; background: var(--ink); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -45,6 +45,25 @@
   nav.links a{ color: var(--ink); opacity:0.72; text-decoration:none; font-size:13.5px; }
   nav.links a:hover, nav.links a.current{ opacity:1; }
   nav.links a.current{ color: var(--rust); }
+
+  .nav-toggle{
+    display:none;
+    background: var(--ink); color: var(--paper); border:none;
+    font-family:"IBM Plex Mono", monospace; font-size:12.5px; letter-spacing:0.06em;
+    padding:9px 16px; cursor:pointer;
+  }
+  .mobile-menu{
+    display:none;
+    flex-direction:column;
+    border-top:1px solid var(--hair);
+    background: var(--paper);
+  }
+  .mobile-menu a{
+    padding:14px 26px; color: var(--ink); text-decoration:none; font-size:14.5px;
+    border-bottom:1px solid var(--hair); opacity:0.82;
+  }
+  .mobile-menu a.current{ color: var(--rust); opacity:1; }
+  .mobile-menu.open{ display:flex; }
 
   /* ---------- HERO ---------- */
   .hero{ padding: 56px 0 60px; border-bottom:1px solid var(--hair); }
@@ -146,6 +165,7 @@
     footer.site .wrap{ grid-template-columns: 1fr 1fr; }
     footer.site .legal{ grid-column: 1 / -1; }
     nav.links{ display:none; }
+    .nav-toggle{ display:inline-block; }
   }
   :focus-visible{ outline: 2px solid var(--rust); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce){ *{ transition:none !important; } }
@@ -167,7 +187,18 @@
       <a href="https://www.equalfaitheurope.org/transparency.html">Transparency</a>
       <a href="https://www.equalfaitheurope.org/contact.html">Contact</a>
     </nav>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
   </div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="https://www.equalfaitheurope.org/index.html">Home</a>
+    <a href="https://www.equalfaitheurope.org/about.html">About</a>
+    <a class="current" href="https://www.equalfaitheurope.org/book.html">Book</a>
+    <a href="https://www.equalfaitheurope.org/publications.html">Publications</a>
+    <a href="https://www.equalfaitheurope.org/priorities.html">Priorities</a>
+    <a href="https://www.equalfaitheurope.org/transparency.html">Transparency</a>
+    <a href="https://www.equalfaitheurope.org/support.html">Support Us</a>
+    <a href="https://www.equalfaitheurope.org/contact.html">Contact</a>
+  </nav>
 </header>
 
 <section class="hero">
@@ -292,5 +323,15 @@
   </div>
 </footer>
 
+<script>
+  var navToggle = document.getElementById('navToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  navToggle.addEventListener('click', function(){
+    var isOpen = mobileMenu.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+</script>
+
 </body>
-</html>
+  </html>
+  
